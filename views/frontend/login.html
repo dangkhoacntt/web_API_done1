@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Login | Berry Bootstrap 5 Admin Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <link rel="icon" href="{{ url_for('static', filename='assets/images/favicon.svg') }}" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" id="main-font-link">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/style.css') }}" id="main-style-link">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/style-preset.css') }}" id="preset-style-link">
+    <style>
+        body {
+            background-color: #e0f7fa; /* Light blue background */
+        }
+        .auth-form {
+            background-color: #ffffff; /* White background for the form */
+            border: 3px solid black; /* Black border wider */
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%; /* Make sure it fits inside the wrapper */
+            max-width: 400px; /* Set a max width for the form */
+            margin: auto; /* Center the form */
+        }
+    </style>
+</head>
+<body data-pc-theme="light" data-pc-direction="ltr" data-pc-preset="preset-1" style="font-family:'Roboto', sans-serif">
+
+<div class="auth-main">
+    <div class="auth-wrapper v2">
+        <div class="auth-form">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='assets/images/logo-dark.svg') }}">
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="d-flex justify-content-center">
+                            <div class="auth-header">
+                                <h2 class="text-secondary"><b>Hi, Welcome Back</b></h2>
+                                <p class="f-16 mt-2">Enter your credentials to continue</p>
+                            </div>
+                        </div>
+                    </div>
+                    <h5 class="my-4 d-flex justify-content-center">Sign in with Email</h5>
+                    <form method="POST" action="{{ url_for('auth.login') }}">
+                        {{ form.hidden_tag() }}  <!-- CSRF token is automatically included here -->
+                        <div class="form-floating mb-3">
+                            <input type="email" name="email" class="form-control" placeholder="Email" required id="id_email">
+                            <label for="id_email">Email</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" name="password" class="form-control" placeholder="Password" required id="id_password">
+                            <label for="id_password">Password</label>
+                        </div>
+                        <div class="d-flex mt-1 justify-content-between">
+                            <div class="form-check">
+                                <input class="form-check-input input-primary" type="checkbox" id="customCheckc1">
+                                <label class="form-check-label text-muted" for="customCheckc1">Remember me</label>
+                            </div>
+                            <h5 class="text-secondary">
+                                <a href="{{ url_for('auth.reset_password') }}">Quên mật khẩu?</a>
+                            </h5>
+                        </div>
+                        <div class="d-grid mt-4">
+                            <button type="submit" class="btn btn-secondary p-2">Sign In</button>
+                        </div>
+                    </form>
+
+                    <hr>
+                    
+                    <!-- Google Login Button -->
+                    <div class="d-grid mt-3">
+                        <a href="{{ url_for('auth.google_login') }}" class="btn btn-danger p-2">
+                            <img src="{{ url_for('static', filename='assets/images/google-logo.svg') }}" alt="Google Logo" style="width: 20px; margin-right: 8px;">
+                            Sign In with Google
+                        </a>
+                    </div>
+
+                    <h5 class="d-flex justify-content-center mt-4">Don't have an account?
+                        <a href="{{ url_for('auth.register') }}">Register</a>
+                    </h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='assets/js/plugins/popper.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/plugins/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/config.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/pcoded.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/plugins/feather.min.js') }}"></script>
+</body>
+</html>

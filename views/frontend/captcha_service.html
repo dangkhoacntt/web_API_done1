@@ -1,0 +1,213 @@
+{% extends "frontend/layout.html" %}
+{% block title %}Arkoselabs funcaptcha{% endblock %}
+{% block content %}
+
+<title>Dịch Vụ CAPTCHA</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #007bff;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 12px;
+            text-align: center;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+ <div class="pc-container">
+    <div class="pc-content">
+        <h1>Giới Thiệu Về Dịch Vụ CAPTCHA</h1>
+        <p>
+            Chúng tôi cung cấp nhiều loại dịch vụ CAPTCHA để giúp bạn bảo vệ trang web của mình khỏi các bot và
+            tự động hóa không mong muốn. Với những giải pháp CAPTCHA đa dạng và giá cả hợp lý, bạn có thể lựa chọn
+            phương pháp phù hợp nhất cho nhu cầu của mình.
+        </p>
+        
+        <h2>Bảng Giá Các Loại CAPTCHA</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Logo CAPTCHA</th>
+                    <th>Loại CAPTCHA</th>
+                    <th>Giá mỗi 1000</th>
+                    <th>Tốc độ Giải Quyết</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><img src="path/to/logo_normal_captcha.png" alt="Normal CAPTCHA"></td>
+                    <td>Normal CAPTCHA</td>
+                    <td>$0.5 - $1</td>
+                    <td>4 giây</td>
+                </tr>
+                <tr>
+                    <td><img src="path/to/logo_recaptcha_v2.png" alt="reCAPTCHA V2"></td>
+                    <td>reCAPTCHA V2</td>
+                    <td>$1 - $2.99</td>
+                    <td>8 giây</td>
+                </tr>
+                <tr>
+                    <td><img src="path/to/logo_recaptcha_v3.png" alt="reCAPTCHA V3"></td>
+                    <td>reCAPTCHA V3</td>
+                    <td>$1.45 (score <= 0.3)<br>$2.99 (score > 0.3)</td>
+                    <td>5 giây</td>
+                </tr>
+                <tr>
+                    <td><img src="path/to/logo_hcaptcha.png" alt="hCaptcha"></td>
+                    <td>hCaptcha</td>
+                    <td>$2.99</td>
+                    <td>30 giây</td>
+                </tr>
+                <tr>
+                    <td><img src="path/to/logo_arkose_labs.png" alt="Arkose Labs FunCaptcha"></td>
+                    <td>Arkose Labs CAPTCHA (FunCaptcha)</td>
+                    <td>$2.99 - $50</td>
+                    <td>26 giây</td>
+                </tr>
+                <tr>
+                    <td><img src="path/to/logo_geetest.png" alt="GeeTest CAPTCHA"></td>
+                    <td>GeeTest CAPTCHA</td>
+                    <td>$2.99</td>
+                    <td>12 giây</td>
+                </tr>
+                <tr>
+                    <td><img src="path/to/logo_keycaptcha.png" alt="KeyCAPTCHA"></td>
+                    <td>KeyCAPTCHA</td>
+                    <td>$2.99</td>
+                    <td>96 giây</td>
+                </tr>
+                <tr>
+                    <td><img src="path/to/logo_capy_puzzle.png" alt="Capy Puzzle CAPTCHA"></td>
+                    <td>Capy Puzzle CAPTCHA</td>
+                    <td>$2.99</td>
+                    <td>9 giây</td>
+                </tr>
+                <tr>
+                    <td><img src="path/to/logo_grid_captcha.png" alt="Grid CAPTCHA"></td>
+                    <td>Grid CAPTCHA</td>
+                    <td>$1.2</td>
+                    <td>8 giây</td>
+                </tr>
+                <tr>
+                    <td><img src="path/to/logo_clickcaptcha.png" alt="ClickCaptcha (Coordinates)"></td>
+                    <td>ClickCaptcha (Coordinates)</td>
+                    <td>$1.2</td>
+                    <td>9 giây</td>
+                </tr>
+                <tr>
+                    <td><img src="path/to/logo_rotate_captcha.png" alt="Rotate CAPTCHA"></td>
+                    <td>Rotate CAPTCHA</td>
+                    <td>$0.5</td>
+                    <td>12 giây</td>
+                </tr>
+                <tr>
+                    <td><img src="path/to/logo_canvas_captcha.png" alt="Canvas CAPTCHA"></td>
+                    <td>Canvas CAPTCHA</td>
+                    <td>$1.2</td>
+                    <td>11 giây</td>
+                </tr>
+                <tr>
+                    <td><img src="path/to/logo_text_captcha.png" alt="Text CAPTCHA"></td>
+                    <td>Text CAPTCHA</td>
+                    <td>$0.5 - $1</td>
+                    <td>4 giây</td>
+                </tr>
+                <tr>
+                    <td><img src="path/to/logo_amazon_captcha.png" alt="Amazon CAPTCHA"></td>
+                    <td>Amazon CAPTCHA</td>
+                    <td>$1.45</td>
+                    <td>22 giây</td>
+                </tr>
+                <tr>
+                    <td><img src="path/to/logo_cloudflare_turnstile.png" alt="Cloudflare Turnstile"></td>
+                    <td>Cloudflare Turnstile</td>
+                    <td>$1.45</td>
+                    <td>13 giây</td>
+                </tr>
+                <tr>
+                    <td><img src="path/to/logo_lemin_captcha.png" alt="Lemin CAPTCHA"></td>
+                    <td>Lemin CAPTCHA</td>
+                    <td>$2.99</td>
+                    <td>49 giây</td>
+                </tr>
+                <tr>
+                    <td><img src="path/to/logo_audio_captcha.png" alt="Audio CAPTCHA"></td>
+                    <td>Audio CAPTCHA</td>
+                    <td>$0.5</td>
+                    <td>15 giây</td>
+                </tr>
+                <tr>
+                    <td><img src="path/to/logo_mtcaptcha.png" alt="MTCaptcha"></td>
+                    <td>MTCaptcha</td>
+                    <td>$2.99</td>
+                    <td>9 giây</td>
+                </tr>
+                <tr>
+                    <td><img src="path/to/logo_datadome_captcha.png" alt="DataDome CAPTCHA"></td>
+                    <td>DataDome CAPTCHA</td>
+                    <td>$2.99</td>
+                    <td>15 giây</td>
+                </tr>
+                <tr>
+                    <td><img src="path/to/logo_cybersiara_captcha.png" alt="CyberSiARA CAPTCHA"></td>
+                    <td>CyberSiARA CAPTCHA</td>
+                    <td>$2.99</td>
+                    <td>13 giây</td>
+                </tr>
+                <tr>
+                    <td><img src="path/to/logo_bounding_box.png" alt="Bounding Box"></td>
+                    <td>Bounding Box</td>
+                    <td>$1.2</td>
+                    <td>10 giây</td>
+                </tr>
+                <tr>
+                    <td><img src="path/to/logo_cutcaptcha.png" alt="Cutcaptcha"></td>
+                    <td>Cutcaptcha</td>
+                    <td>$2.99</td>
+                    <td>58 giây</td>
+                </tr>
+                <tr>
+                    <td><img src="path/to/logo_friendly_captcha.png" alt="Friendly CAPTCHA"></td>
+                    <td>Friendly CAPTCHA</td>
+                    <td>$2.99</td>
+                    <td>13 giây</td>
+                </tr>
+            </tbody>
+        </table>      
+        <p>
+            Với các loại CAPTCHA khác nhau, bạn có thể chọn lựa phù hợp với nhu cầu bảo mật của mình. Hãy liên hệ với chúng tôi để biết thêm chi tiết và bắt đầu sử dụng dịch vụ ngay hôm nay!
+        </p>
+    </div>
+
+    </div>
+        </div>
+            </div>
+        </div>    
+        </div>
+{% endblock %}

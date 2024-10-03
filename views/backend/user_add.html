@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Add User</title>
+</head>
+<body>
+    <h1>Add User</h1>
+    <form method="post">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+        <br>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+        <br>
+        <label for="first_name">First Name</label>
+        <input type="text" id="first_name" name="first_name" required>
+        <br>
+        <label for="last_name">Last Name</label>
+        <input type="text" id="last_name" name="last_name" required>
+        <br>
+        <label for="phone">Phone</label>
+        <input type="text" id="phone" name="phone">
+        <br>
+        <label for="finances">Finances</label>
+        <input type="text" id="finances" name="finances">
+        <br>
+        <button type="submit">Add</button>
+    </form>
+    <a href="{{ url_for('user.list_users') }}">Back to User List</a>
+</body>
+</html>

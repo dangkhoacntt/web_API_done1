@@ -1,0 +1,291 @@
+{% extends "backend/layout.html" %}
+{% block title %}Users List{% endblock %}
+{% block content %}
+
+<div class="pc-container">
+    <div class="pc-content">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card table-card">
+                    <div class="card-header">
+                        <h5>Users List</h5>
+                        <li class="pc-h-item d-none d-md-inline-flex">
+                            <form class="header-search" onsubmit="searchUsers(event)" style="display: flex; align-items: center;">
+                                <input type="search" id="search-input" class="form-control" placeholder="Search here. . ." />
+                                <button type="submit" class="btn btn-light-secondary btn-search" style="margin-left: 5px;">
+                                    <i class="ti ti-adjustments-horizontal"></i>
+                                </button>
+                            </form>
+                        </li>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover" id="pc-dt-simple">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" />
+                                            </div>
+                                        </th>
+                                        <th>Email</th>
+                                        <th>Key API</th>
+                                        <th>Finances</th> <!-- Thêm cột Finances -->
+                                        <th>Created At</th>
+                                        <th>Status</th>
+                                        <th class="text-center">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for user in users %}
+                                    <tr>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <h5 class="mb-0">{{ user.email }}</h5>
+                                            </div>
+                                        </td>
+                                        <td>{{ user.key_api }}</td>
+                                        <td>{{ user.finances }}</td> <!-- Hiển thị finances -->
+                                        <td>{{ user.created_at }}</td>
+                                        <td>{{ user.status }}</td>
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-link-primary" onclick="showApiUsageChart({{ user.id }})">
+                                                <i class="ti ti-eye"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-link-danger" onclick="toggleBlockUser(this, {{ user.id }})">
+                                                <i class="ti ti-trash"></i>
+                                            </button>
+
+                                            <div class="block-user-form" style="display: none;">
+                                                <h5>Block User</h5>
+                                                <meta name="csrf-token" content="{{ csrf_token() }}">
+                                                <p>Are you sure you want to block this user?</p>
+                                                <button type="button" class="btn btn-danger" onclick="blockUser({{ user.id }})">Block</button>
+                                                <button type="button" class="btn btn-secondary" onclick="toggleBlockUser(this, {{ user.id }})">Cancel</button>
+                                            </div>
+
+
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Modal hiển thị biểu đồ -->
+                        <div class="modal fade" id="apiUsageModal" tabindex="-1" aria-labelledby="apiUsageModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="apiUsageModalLabel">Biểu đồ API Usage</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <canvas id="apiUsageChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    let chart;
+
+    function searchUsers(event) {
+        event.preventDefault(); // Ngăn chặn hành vi mặc định của form
+
+        const query = document.getElementById('search-input').value;
+
+        fetch(`/api/search_users?query=${encodeURIComponent(query)}`)
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.querySelector('#pc-dt-simple tbody');
+                tbody.innerHTML = ''; // Xóa nội dung hiện tại
+
+                // Hiển thị kết quả tìm kiếm
+                data.users.forEach(user => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" />
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <h5 class="mb-0">${user.email}</h5>
+                            </div>
+                        </td>
+                        <td>${user.key_api}</td>
+                        <td>${user.finances}</td> <!-- Hiển thị finances -->
+                        <td>${user.created_at}</td>
+                        <td>${user.status}</td>
+                        <td class="text-center">
+                            <button type="button" class="btn btn-link-primary" onclick="showApiUsageChart(${user.id})">
+                                <i class="ti ti-eye"></i>
+                            </button>
+                            <button type="button" class="btn btn-link-danger" onclick="toggleBlockUser(this, ${user.id})">
+                                <i class="ti ti-trash"></i>
+                            </button>
+                            <div class="block-user-form" style="display: none;">
+                                <h5>Block User</h5>
+                                <meta name="csrf-token" content="{{ csrf_token() }}">
+                                <p>Are you sure you want to block this user?</p>
+                                <button type="button" class="btn btn-danger" onclick="blockUser(${user.id})">Block</button>
+                                <button type="button" class="btn btn-secondary" onclick="toggleBlockUser(this, ${user.id})">Cancel</button>
+                            </div>
+
+
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    function showApiUsageChart(userId) {
+        fetch(`/api/user/${userId}/usage`)
+            .then(response => response.json())
+            .then(data => {
+                const totalCount = data.length;
+                const successCount = data.filter(item => item.success === 1).length;
+                const failCount = data.filter(item => item.success === 0).length;
+
+                const successPercentage = (successCount / totalCount) * 100;
+                const failPercentage = (failCount / totalCount) * 100;
+
+                const modalBody = document.querySelector('#apiUsageModal .modal-body');
+                modalBody.innerHTML = `<canvas id="apiUsageChart"></canvas>
+                                       <p>Tổng số lần gửi: ${totalCount}</p>`;
+                const modal = new bootstrap.Modal(document.getElementById('apiUsageModal'));
+                modal.show();
+
+                const ctx = document.getElementById('apiUsageChart').getContext('2d');
+                if (chart) {
+                    chart.destroy();
+                }
+
+                chart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Thành công', 'Thất bại'],
+                        datasets: [{
+                            label: 'Tỷ lệ phần trăm',
+                            data: [successPercentage, failPercentage],
+                            backgroundColor: [
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(255, 99, 132, 1)'
+                            ]
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value + '%';
+                                    }
+                                }
+                            }
+                        },
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    label: function(tooltipItem) {
+                                        const count = tooltipItem.label === 'Thành công' ? successCount : failCount;
+                                        return `${tooltipItem.label}: ${tooltipItem.raw.toFixed(2)}% (${count} lần gửi)`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    function toggleBlockUser(button, userId) {
+        const allForms = document.querySelectorAll('.block-user-form');
+        allForms.forEach(form => {
+            form.style.display = 'none';
+        });
+
+        const form = button.parentElement.querySelector('.block-user-form');
+        form.style.display = form.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function getCsrfToken() {
+        return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    }
+
+    function blockUser(userId) {
+        if (confirm("Are you sure you want to block this user?")) {
+            fetch(`/admin/block_user/${userId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCsrfToken() // Thêm mã thông báo CSRF
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Permission denied or user not found');
+                }
+            })
+            .then(data => {
+                alert(data.message);
+                location.reload();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error: ' + error.message);
+            });
+        }
+    }
+
+    function deleteUser(userId) {
+        if (confirm("Are you sure you want to delete this user?")) {
+            fetch(`/admin/delete_user/${userId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCsrfToken() // Thêm mã thông báo CSRF
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Permission denied or user not found');
+                }
+            })
+            .then(data => {
+                alert(data.message);
+                location.reload();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error: ' + error.message);
+            });
+        }
+    }
+
+</script>
+
+{% endblock %}

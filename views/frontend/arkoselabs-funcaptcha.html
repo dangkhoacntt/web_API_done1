@@ -1,0 +1,452 @@
+
+
+{% extends "frontend/layout.html" %}
+{% block title %}Arkoselabs funcaptcha{% endblock %}
+{% block content %}
+<div class="pc-container">
+    <div class="pc-content">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Specifications and API Examples</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 20px auto;
+            overflow-y: auto;
+            max-height: 90vh;
+        }
+
+        .header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .header-text {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .header-image {
+            flex: 0 0 30%;
+            text-align: right;
+        }
+
+        .header-image img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        h3 {
+            margin-bottom: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        pre {
+            background-color: #f8f8f8;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin-bottom: 20px;
+        }
+
+        .tab-container {
+            margin-top: 20px;
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .tab-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            flex: 1;
+            text-align: center;
+        }
+
+        .tab-button:hover {
+            background-color: #0056b3;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @media (max-width: 600px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-image {
+                width: 100%;
+                text-align: left;
+            }
+
+            .header-image img {
+                max-width: 80%;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-text">
+                <h2>ArkoseLabs FunCaptcha widget</h2>
+                <p>Token-based method for automated solving of ArkoseLabs CAPTCHA (previously FunCaptcha).</p>
+            </div>
+            <div class="header-image">
+                <!-- Add your image path here -->
+                <img src="{{ url_for('static', filename='assets/images/icon/arkose.svg') }}" alt="FunCaptcha Image">
+
+            </div>
+        </div>
+
+        <div class="header">
+            <div class="header-text">
+                <h2>Task types</h2>
+                <p>FunCaptchaTaskProxyless - we use our own proxies pool to load and solve the captcha</p>
+                <p>FunCaptchaTask - we use your proxies</p>
+            </div>
+        </div>
+
+        <h3>Task Specification</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Type</th>
+                    <th>Required</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>type</td>
+                    <td>String</td>
+                    <td>Yes</td>
+                    <td>Task type: <br>FunCaptchaTaskProxyless, FunCaptchaTask</td>
+                </tr>
+                <tr>
+                    <td>websiteURL</td>
+                    <td>String</td>
+                    <td>Yes</td>
+                    <td>The full URL of target web page where the captcha is loaded. We do not open the page, not a problem if it is available only for authenticated users.</td>
+                </tr>
+                <tr>
+                    <td>websitePublicKey</td>
+                    <td>String</td>
+                    <td>Yes</td>
+                    <td>ArkoseLabs CAPTCHA public key. The public key can be found in the value of the data-pkey parameter of the div element FunCaptcha, or from the value of the fc-token element.</td>
+                </tr>
+                <tr>
+                    <td>funcaptchaApiJSSubdomain</td>
+                    <td>String</td>
+                    <td>No</td>
+                    <td>Custom subdomain used to load the captcha widget, like: sample-api.arkoselabs.com.</td>
+                </tr>
+                <tr>
+                    <td>data</td>
+                    <td>String</td>
+                    <td>No</td>
+                    <td>Additional data payload object converted to a string with JSON.stringify. Example: {\"blob\":\"BLOB_DATA_VALUE\"}.</td>
+                </tr>
+                <tr>
+                    <td>userAgent</td>
+                    <td>String</td>
+                    <td>No</td>
+                    <td>User-Agent of your browser used to load the captcha. Use only modern browser's User-Agents.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>FunCaptchaTask Task Type Specification</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Type</th>
+                    <th>Required</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>proxyType</td>
+                    <td>String</td>
+                    <td>Yes</td>
+                    <td>Proxy type: http, socks4, socks5.</td>
+                </tr>
+                <tr>
+                    <td>proxyAddress</td>
+                    <td>String</td>
+                    <td>Yes</td>
+                    <td>Proxy IP address or hostname.</td>
+                </tr>
+                <tr>
+                    <td>proxyPort</td>
+                    <td>Integer</td>
+                    <td>Yes</td>
+                    <td>Proxy port.</td>
+                </tr>
+                <tr>
+                    <td>proxyLogin</td>
+                    <td>String</td>
+                    <td>No</td>
+                    <td>Login for basic authentication on the proxy.</td>
+                </tr>
+                <tr>
+                    <td>proxyPassword</td>
+                    <td>String</td>
+                    <td>No</td>
+                    <td>Password for basic authentication on the proxy.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Request Examples</h3>
+        <pre><code>
+// Method: createTask
+// API endpoint: https://api.2captcha.com/createTask
+
+// FunCaptchaTaskProxyless
+{
+    "clientKey":"YOUR_API_KEY",
+    "task": {
+        "type":"FunCaptchaTaskProxyless",
+        "websiteURL":"https://www.example.com",
+        "websitePublicKey":"6220FF23-9856-3A6F-9FF1-A14F88123F55",
+        "funcaptchaApiJSSubdomain":"client-api.arkoselabs.com",
+        "userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36"
+    }
+}
+
+// FunCaptchaTask
+{
+    "clientKey":"YOUR_API_KEY",
+    "task": {
+        "type":"FunCaptchaTask",
+        "websiteURL":"https://www.example.com",
+        "websitePublicKey":"6220FF23-9856-3A6F-9FF1-A14F88123F55",
+        "funcaptchaApiJSSubdomain":"client-api.arkoselabs.com",
+        "userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36",
+        "proxyType":"http",
+        "proxyAddress":"1.2.3.4",
+        "proxyPort":"8080",
+        "proxyLogin":"user23",
+        "proxyPassword":"p4$w0rd"
+    }
+}
+        </code></pre>
+
+        <h3>Response Example</h3>
+        <pre><code>
+// Method: getTaskResult
+// API endpoint: https://api.2captcha.com/getTaskResult
+
+{
+    "errorId": 0,
+    "status": "ready",
+    "solution": {
+        "token": "142000f7f4545ca36.6123911001|r=us-beast-1|meta=3|metabgclr=%23ffffff|metaiconclr=%23757575|guitextcolor=%23000000|pk=6220FF23-9856-3A6F-9FF1-A14F88123F55|dc=1|at=40|ag=101|cdn_url=https%3A%2F%2Fsuncaptcha.com%2Fcdn%2Ffc|lurl=https%3A%2F%2Faudio-us-beast-1.arkoselabs.com|surl=https%3A%2F%2Fsuncaptcha.com|smurl=https%3A%2F%2Fsuncaptcha.com%2Fcdn%2Ffc%2Fassets%2Fstyle-manager"
+    },
+    "cost": "0.002",
+    "ip": "1.2.3.4",
+    "createTime": 1692863536,
+    "endTime": 1692863556,
+    "solveCount": 0
+}
+        </code></pre>
+
+        <!-- Tab Container -->
+        <div class="tab-container">
+            <div class="tabs">
+                <button class="tab-button" onclick="showTab('php')">PHP</button>
+                <button class="tab-button" onclick="showTab('python')">Python</button>
+                <button class="tab-button" onclick="showTab('csharp')">C#</button>
+                <button class="tab-button" onclick="showTab('java')">Java</button>
+                <button class="tab-button" onclick="showTab('go')">Go</button>
+                <button class="tab-button" onclick="showTab('ruby')">Ruby</button>
+            </div>
+            <div class="tab-content" id="php">
+                <pre><code>
+require(__DIR__ . '/path/to/2captcha-php/src/autoloader.php');
+
+$solver = new \TwoCaptcha\TwoCaptcha('YOUR_API_KEY');
+
+try {
+    $result = $solver->funcaptcha([
+        'sitekey' => '6220FF23-9856-3A6F-9FF1-A14F88123F55',
+        'url' => 'https://www.example.com',
+        'surl' => 'https://client-api.arkoselabs.com',
+    ]);
+    echo 'Captcha solved: ' . $result->code;
+} catch (Exception $e) {
+    die($e->getMessage());
+}
+                </code></pre>
+            </div>
+
+
+            <div class="tab-content" id="python" style="display:none;">
+                <pre><code>
+import requests
+
+api_key = 'YOUR_API_KEY'
+sitekey = '6220FF23-9856-3A6F-9FF1-A14F88123F55'
+url = 'https://www.example.com'
+surl = 'https://client-api.arkoselabs.com'
+
+response = requests.post('https://2captcha.com/in.php', data={
+    'key': api_key,
+    'method': 'funcaptcha',
+    'sitekey': sitekey,
+    'pageurl': url,
+    'surl': surl
+})
+
+captcha_id = response.text.split('|')[1]
+
+result = requests.get(f'https://2captcha.com/res.php?key={api_key}&action=get&id={captcha_id}')
+print('Captcha solved:', result.text)
+                </code></pre>
+            </div>
+
+
+
+
+  
+            <div class="tab-content" id="java" style="display:none;">
+                <pre><code>
+package main
+
+import (
+    "fmt"
+    "log"
+    "github.com/2captcha/2captcha-go"
+)
+
+func main() {
+  client := api2captcha.NewClient("API_KEY")
+  captcha := api2captcha.FunCaptcha{
+    SiteKey: "6220FF23-9856-3A6F-9FF1-A14F88123F55",
+    Url: "https://www.example.com",
+    Surl: "https://client-api.arkoselabs.com",
+    Data: map[string]string{"anyKey":"anyValue"},   
+  }
+    code, err := client.Solve(captcha.ToRequest())
+    if err != nil {
+        log.Fatal(err);
+    }
+    fmt.Println("code "+code)
+}
+                </code></pre>
+            </div>
+            <div class="tab-content" id="go" style="display:none;">
+                <pre><code>
+require 'api_2captcha'
+
+client =  Api2Captcha.new("YOUR_API_KEY")
+
+result = client.funcaptcha({
+publickey: "6220FF23-9856-3A6F-9FF1-A14F88123F55",
+pageurl: "https://www.example.com",
+surl: "https://client-api.arkoselabs.com"
+})
+                </code></pre>
+            </div>
+<div class="tab-content" id="csharp" style="display:none;">
+                <pre><code>
+using System;
+using System.Linq;
+using TwoCaptcha.Captcha;
+
+namespace TwoCaptcha.Examples
+{
+    public class FunCaptchaExample
+    {
+        public void Main()
+        {
+            TwoCaptcha solver = new TwoCaptcha("YOUR_API_KEY");
+            FunCaptcha captcha = new FunCaptcha();
+            captcha.SetSiteKey("6220FF23-9856-3A6F-9FF1-A14F88123F55");
+            captcha.SetUrl("https://www.example.com");
+            captcha.SetSUrl("https://client-api.arkoselabs.com");
+            try
+            {
+                solver.Solve(captcha).Wait();
+                Console.WriteLine("Captcha solved: " + captcha.Code);
+            }
+            catch (AggregateException e)
+            {
+                Console.WriteLine("Error occurred: " + e.InnerExceptions.First().Message);
+            }
+        }
+    }
+}
+                </code></pre>
+            </div>
+
+
+
+
+  
+            <!-- Add more tab contents for C#, Java, Go, Ruby similarly -->
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            var tabs = document.getElementsByClassName('tab-content');
+            for (var i = 0; i < tabs.length; i++) {
+                tabs[i].style.display = 'none';
+            }
+            document.getElementById(tabId).style.display = 'block';
+        }
+    </script>
+</body>
+{% endblock %}

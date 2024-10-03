@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <title>{% block title %}Trang chủ{% endblock %}</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="description"
+  content="Berry is made using Bootstrap 5 design framework. Download the free admin template & use it for your project."/>
+<meta name="keywords" content="Berry, Dashboard UI Kit, Bootstrap 5, Admin Template, Admin Dashboard, CRM, CMS, Bootstrap Admin Template" />
+<meta name="author" content="CodedThemes" />
+<link rel="icon" href="{{ url_for('static', filename='assets/images/favicon.svg') }}" type="image/x-icon" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" id="main-font-link" />
+<link rel="stylesheet" href="{{ url_for('static', filename='assets/fonts/tabler-icons.min.css') }}" />
+<link rel="stylesheet" href="{{ url_for('static', filename='assets/fonts/feather.css') }}" />
+<link rel="stylesheet" href="{{ url_for('static', filename='assets/fonts/fontawesome.css') }}" />
+<link rel="stylesheet" href="{{ url_for('static', filename='assets/fonts/material.css') }}" />
+<link rel="stylesheet" href="{{ url_for('static', filename='assets/css/style.css') }}" id="main-style-link" />
+<link rel="stylesheet" href="{{ url_for('static', filename='assets/css/style-preset.css') }}" id="preset-style-link" />
+<link rel="stylesheet" href="{{ url_for('static', filename='assets/css/plugins/dataTables.bootstrap5.min.css') }}" />
+  </head>
+  <body>
+<div class="loader-bg">
+  <div class="loader-track">
+    <div class="loader-fill"></div>
+  </div>
+</div>
+<header class="pc-header">
+  <div class="m-header">
+    <a href="https://django-berry-pro.onrender.com/" class="b-brand">
+      <img src="{{ url_for('static', filename='assets/images/logo-dark.svg') }}" alt="" class="logo logo-lg" />
+    </a>
+    <div class="pc-h-item">
+      <a href="#" class="pc-head-link head-link-secondary m-0" id="sidebar-hide">
+        <i class="ti ti-menu-2"></i>
+      </a>
+    </div>
+  </div>
+  <div class="header-wrapper">
+<div class="me-auto pc-mob-drp">
+  <ul class="list-unstyled">
+    <li class="pc-h-item header-mobile-collapse">
+      <a href="#" class="pc-head-link head-link-secondary ms-0" id="mobile-collapse">
+        <i class="ti ti-menu-2"></i>
+      </a>
+    </li>
+    <li class="dropdown pc-h-item d-inline-flex d-md-none">
+      <a class="pc-head-link head-link-secondary dropdown-toggle arrow-none m-0" data-bs-toggle="dropdown" href="#"
+        role="button" aria-haspopup="false" aria-expanded="false">
+        <i class="ti ti-search"></i>
+      </a>
+      <div class="dropdown-menu pc-h-dropdown drp-search">
+        <form class="px-3">
+          <div class="form-group mb-0 d-flex align-items-center">
+            <i data-feather="search"></i>
+            <input type="search" class="form-control border-0 shadow-none" placeholder="Search here. . ." />
+          </div>
+        </form>
+      </div>
+    </li>
+   
+  </ul>
+</div>
+<div class="ms-auto">
+  <ul class="list-unstyled">
+    <li class="dropdown pc-h-item pc-mega-menu">
+      <div class="dropdown-menu pc-h-dropdown pc-mega-dmenu">
+        <div class="row g-0">
+          <div class="col text-center image-block">
+            <img src="{{ url_for('static', filename='assets/images/pages/img-megamenu.svg') }}" alt="image" class="img-fluid rounded" />
+          </div>
+          <div class="col">
+            <h6 class="mega-title">UI Components</h6>
+            <ul class="pc-mega-list">
+              <li><a href="https://django-berry-pro.onrender.com/elements/alerts/" class="dropdown-item"><i class="fas fa-circle"></i> Alerts</a></li>
+              <li><a href="#!" class="dropdown-item"><i class="fas fa-circle"></i> Accordions</a></li>
+              <li><a href="#!" class="dropdown-item"><i class="fas fa-circle"></i> Avatars</a></li>
+              <li><a href="https://django-berry-pro.onrender.com/elements/badges/" class="dropdown-item"><i class="fas fa-circle"></i> Badges</a></li>
+              <li><a href="https://django-berry-pro.onrender.com/elements/breadcrumb-pagination/" class="dropdown-item"><i class="fas fa-circle"></i> Breadcrumbs</a></li>
+            </ul>
+          </div>
+          </div>
+        </div>
+      </div>
+    </li>
+
+      <div class="dropdown-menu dropdown-notification dropdown-menu-end pc-h-dropdown">
+        <div class="dropdown-header">
+          <a href="#!" class="link-primary float-end text-decoration-underline">Mark as all read</a>
+          <h5>All Notification <span class="badge bg-warning rounded-pill ms-1">01</span></h5>
+        </div>
+        <div class="dropdown-header px-0 text-wrap header-notification-scroll position-relative"
+          style="max-height: calc(100vh - 215px)">
+          <div class="list-group list-group-flush w-100">
+            <div class="list-group-item">
+              <select class="form-select">
+                <option value="all">All Notification</option>
+                <option value="new">New</option>
+                <option value="unread">Unread</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <a class="list-group-item list-group-item-action">
+              <div class="d-flex">
+                <div class="flex-shrink-0">
+                 <img src="{{ url_for('static', filename='assets/images/user/avatar-2.jpg') }}" alt="user-image" class="user-avtar" />
+                </div>
+                <div class="flex-grow-1 ms-1">
+                  <span class="float-end text-muted">2 min ago</span>
+                  <h5>John Doe</h5>
+                  <p class="text-body fs-6">It is a long established fact that a reader will be distracted </p>
+                  <div class="badge rounded-pill bg-light-danger">Unread</div>
+                  <div class="badge rounded-pill bg-light-warning">New</div>
+                </div>
+              </div>
+            </a>
+            <a class="list-group-item list-group-item-action">
+              <div class="d-flex">
+                <div class="flex-shrink-0">
+                  <div class="user-avtar bg-light-success"><i class="ti ti-building-store"></i></div>
+                </div>
+                <div class="flex-grow-1 ms-1">
+                  <span class="float-end text-muted">3 min ago</span>
+                  <h5>Store Verification Done</h5>
+                  <p class="text-body fs-6">We have successfully received your request.</p>
+                  <div class="badge rounded-pill bg-light-danger">Unread</div>
+                </div>
+              </div>
+            </a>
+            <a class="list-group-item list-group-item-action">
+              <div class="d-flex">
+                <div class="flex-shrink-0">
+                  <div class="user-avtar bg-light-primary"><i class="ti ti-mailbox"></i></div>
+                </div>
+                <div class="flex-grow-1 ms-1">
+                  <span class="float-end text-muted">5 min ago</span>
+                  <h5>Check Your Mail.</h5>
+                  <p class="text-body fs-6">All done! Now check your inbox as you're in for a sweet treat! </p>
+                  <button class="btn btn-sm btn-primary">Mail <i class="ti ti-brand-telegram"></i></button>
+                </div>
+              </div>
+            </a>
+            <a class="list-group-item list-group-item-action">
+              <div class="d-flex">
+                <div class="flex-shrink-0">
+                  <img src="{{ url_for('static', filename='assets/images/user/avatar-1.jpg') }}" alt="user-image" class="user-avtar" />
+                </div>
+                <div class="flex-grow-1 ms-1">
+                  <span class="float-end text-muted">8 min ago</span>
+                  <h5>John Doe</h5>
+                  <p class="text-body fs-6">Uploaded two file on &nbsp;<strong>21 Jan 2020</strong></p>
+                  <div class="notification-file d-flex p-3 bg-light-secondary rounded">
+                    <i class="ti ti-arrow-bar-to-down"></i>
+                    <h5 class="m-0">demo.jpg</h5>
+                  </div>
+                </div>
+              </div>
+            </a>
+            <a class="list-group-item list-group-item-action">
+              <div class="d-flex">
+                <div class="flex-shrink-0">
+                 <img src="{{ url_for('static', filename='assets/images/user/avatar-3.jpg') }}" alt="user-image" class="user-avtar" />
+                </div>
+                <div class="flex-grow-1 ms-1">
+                  <span class="float-end text-muted">10 min ago</span>
+                  <h5>Joseph William</h5>
+                  <p class="text-body fs-6">It is a long established fact that a reader will be distracted </p>
+                  <div class="badge rounded-pill bg-light-success">Confirmation of Account</div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="dropdown-divider"></div>
+        <div class="text-center py-2">
+          <a href="#!" class="link-primary">Mark as all read</a>
+        </div>
+      </div>
+    </li>
+    <li class="dropdown pc-h-item header-user-profile">
+      <a class="pc-head-link head-link-primary dropdown-toggle arrow-none me-0" data-bs-toggle="dropdown" href="#"
+        role="button" aria-haspopup="false" aria-expanded="false">
+        <img src="{{ url_for('static', filename='assets/images/user/avatar-2.jpg') }}" alt="user-image" class="user-avtar" />
+        <span>
+          <i class="ti ti-settings"></i>
+        </span>
+      </a>
+      <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown">
+    <div class="dropdown-header">
+        <h4>Good Morning, <span class="small text-muted">{{ session['user_email'] }}</span></h4>
+        <p class="text-muted">Project Admin</p>
+        <form class="header-search">
+            <i data-feather="search" class="icon-search"></i>
+            <input type="search" class="form-control" placeholder="Search profile options" />
+        </form>
+        <hr />
+            <hr />
+            <div class="settings-block bg-light-primary rounded">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
+                    <label class="form-check-label" for="flexSwitchCheckDefault">Start DND Mode</label>
+                </div>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked />
+                    <label class="form-check-label" for="flexSwitchCheckChecked">Allow Notifications</label>
+                </div>
+            </div>
+            <hr />
+            <p class="user-info">Tài chính của bạn: {{ session['user_finances'] }}</p>
+            <p class="user-info">Số điện thoại của bạn: {{ session['user_phone'] }}</p>
+            <a href="{{ url_for('auth.logout') }}" class="btn">Đăng Xuất</a>
+            <hr />
+        </div>
+    </div>
+</div>
+
+    </li>
+  </ul>
+</div>
+  </div>
+</header>
+<nav class="pc-sidebar">
+  <div class="navbar-wrapper">
+    <div class="m-header">
+      <a href="https://django-berry-pro.onrender.com/" class="b-brand">
+        <img src="{{ url_for('static', filename='assets/images/logo-dark.svg') }}" alt="" class="logo logo-lg" />
+      </a>
+    </div>
+    <div class="navbar-content">
+      <ul class="pc-navbar">
+<li class="pc-item">
+  <a href="{{ url_for('user_list.user_list') }}" class="pc-link">
+    <span class="pc-micon"><i class="ti ti-user"></i></span>
+    <span class="pc-mtext">Users List</span>
+  </a>
+</li>
+    </div>
+  </div>
+</nav>
+    <!-- [ Main Content ] start -->
+    {% block content %}
+        <!-- Nội dung trang con sẽ được render ở đây -->
+        {% endblock %}
+    <!-- [ Main Content ] end -->
+<script src="{{ url_for('static', filename='assets/js/plugins/popper.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/plugins/simplebar.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/plugins/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/config.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/pcoded.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/plugins/feather.min.js') }}"></script>
+
+<div class="pct-c-btn">
+  <button class="btn btn-secondary" data-bs-toggle="offcanvas" data-bs-target="#offcanvas_layout">
+    <i data-feather="settings"></i>
+  </button>
+</div>
+<div class="offcanvas pct-offcanvas offcanvas-end" tabindex="-1" id="offcanvas_layout">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title">Berry Customizer</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="pct-body" style="height: calc(100% - 60px)">
+    <div class="offcanvas-body">
+      <div class="card">
+        <div class="card-header">
+          <h5>Layout</h5>
+        </div>
+        <div class="card-body">
+          <p class="mb-1">Mode</p>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="layout_mode" id="layoutmodelight"
+              onclick="layout_change('light')" />
+            <label class="form-check-label" for="layoutmodelight"> Light </label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="layout_mode" id="layoutmodedark"
+              onclick="layout_change('dark')" />
+            <label class="form-check-label" for="layoutmodedark"> Dark </label>
+          </div>
+          <div class="pc-rtl">
+            <p class="mt-3 mb-1">Direction</p>
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" role="switch" id="layoutmodertl" />
+              <label class="form-check-label" for="layoutmodertl">RTL</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <h5>Preset Color</h5>
+        </div>
+        <div class="card-body">
+          <div class="theme-color preset-color">
+            <a href="#!" class="active" data-value="preset-1"><span></span><span></span></a>
+            <a href="#!" class="" data-value="preset-2"><span></span><span></span></a>
+            <a href="#!" class="" data-value="preset-3"><span></span><span></span></a>
+            <a href="#!" class="" data-value="preset-4"><span></span><span></span></a>
+            <a href="#!" class="" data-value="preset-5"><span></span><span></span></a>
+            <a href="#!" class="" data-value="preset-6"><span></span><span></span></a>
+            <a href="#!" class="" data-value="preset-7"><span></span><span></span></a>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <h5>Font Family</h5>
+        </div>
+        <div class="card-body">
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="layout_font" id="layoutfontRoboto" checked
+              onclick="font_change('Roboto')" />
+            <label class="form-check-label" for="layoutfontRoboto"> Roboto </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="layout_font" id="layoutfontPoppins"
+              onclick="font_change('Poppins')" />
+            <label class="form-check-label" for="layoutfontPoppins"> Poppins </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="layout_font" id="layoutfontInter"
+              onclick="font_change('Inter')" />
+            <label class="form-check-label" for="layoutfontInter"> Inter </label>
+          </div>
+        </div>
+      </div>
+      <div class="card pc-boxcontainer">
+        <div class="card-header">
+          <h5>Box Container</h5>
+        </div>
+        <div class="card-body">
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="layoutboxcontainer" />
+            <label class="form-check-label" for="layoutboxcontainer">Container</label>
+          </div>
+        </div>
+      </div>
+      <div class="d-grid">
+        <button class="btn btn-light-danger" id="layoutreset">Reset Layout</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="{{ url_for('static', filename='assets/js/customizer.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="{{ url_for('static', filename='assets/js/plugins/jquery.dataTables.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/plugins/dataTables.bootstrap5.min.js') }}"></script>
+
+</body>
+</html>

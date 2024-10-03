@@ -1,0 +1,18 @@
+{% extends "frontend/layout.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<div class="pc-container">
+    <div class="pc-content">
+
+        {% if 'user_email' in session %}
+            <h1>Chào mừng, {{ session['user_email'] }}!</h1>
+            <p class="user-info">Tài chính của bạn: {{ session['user_finances'] }}</p>
+            <a href="{{ url_for('auth.logout') }}" class="btn">Đăng Xuất</a>
+        {% else %}
+            <h1>Chào mừng đến với trang chính!</h1>
+            <a href="{{ url_for('auth.login') }}" class="btn">Đăng Nhập</a>
+            <a href="{{ url_for('auth.register') }}" class="btn">Đăng Ký</a>
+        {% endif %}
+    </div>
+        </div>
+{% endblock %}

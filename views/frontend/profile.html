@@ -1,0 +1,198 @@
+{% extends "frontend/layout.html" %}
+{% block content %}
+
+<div class="pc-container">
+  <div class="pc-content">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card user-card user-card-1">
+          <div class="card-body pb-0">
+            <div class="float-end">
+              <span class="badge badge-success">Pro</span>
+            </div>
+            <div class="media user-about-block align-items-center mt-0 mb-3">
+              <form method="post" action="/users/upload-avatar/" class="position-relative d-inline-block" enctype="multipart/form-data">
+                <input type="hidden" name="csrfmiddlewaretoken" value="HT65HT5mHl3fC3Y99SqAgkN9nNgZIlSyqKYfYQMUMRMRVQBVCF4eOMAUby1clqOP">
+              </form>
+            </div>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <span class="f-w-500"><i class="feather icon-mail m-r-10"></i>Email</span>
+              <a href="mailto:demo@sample" class="float-end text-body">{{ user['email'] }}</a>
+            </li>
+          </ul>
+          <div class="nav flex-column nav-pills list-group list-group-flush list-pills mt-2" id="user-set-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link list-group-item list-group-item-action active" id="user-set-profile-tab" data-bs-toggle="pill" href="#user-set-profile" role="tab" aria-controls="user-set-profile" aria-selected="true">
+              <span class="f-w-500"><i class="feather icon-user m-r-10 h5 "></i>Profile Overview</span>
+              <span class="float-end"><i class="feather icon-chevron-right"></i></span>
+            </a>
+            <a class="nav-link list-group-item list-group-item-action" id="user-set-passwort-tab" data-bs-toggle="pill" href="#user-set-passwort" role="tab" aria-controls="user-set-passwort" aria-selected="false" tabindex="-1">
+              <span class="f-w-500"><i class="feather icon-shield m-r-10 h5 "></i>Change Password</span>
+              <span class="float-end"><i class="feather icon-chevron-right"></i></span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-8">
+        <div class="tab-content bg-transparent p-0 shadow-none" id="user-set-tabContent">
+          <div class="tab-pane fade show active" id="user-set-profile" role="tabpanel" aria-labelledby="user-set-profile-tab">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="mt-5 mb-3">Personal Details</h5>
+                <table class="table table-borderless">
+                  <tbody>
+                    <tr>
+                      <td class="">Full Name</td>
+                      <td class="">:</td>
+                      <td class="">{{ user['first_name'] }} {{ user['last_name'] }}</td>
+                    </tr>
+                    <tr>
+                      <td class="">API Key</td>
+                      <td class="">:</td>
+                      <td class="">{{ api_key }}</td>
+                    </tr>
+                    <tr>
+                      <td class="">Email</td>
+                      <td class="">:</td>
+                      <td class="">{{ user['email'] }}</td>
+                    </tr>
+                      <tr>
+                      <td class="">Finances</td>
+                      <td class="">:</td>
+                      <td class="">{{ user['finances'] }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <!-- API Key Change Form -->
+                <h5 class="mt-5 mb-3">Change API Key</h5>
+                <form method="post" action="{{ url_for('user.update_api_key_route') }}">
+                    {{ update_api_key_form.hidden_tag() }}  <!-- CSRF token -->
+                    <button type="submit" class="btn btn-primary">Change API Key</button>
+                </form>
+
+
+                <!-- API Usage Chart -->
+                <h5 class="mt-5 mb-3">API Usage</h5>
+                <canvas id="apiUsageChart" style="height: 200px; width: 100%;"></canvas> <!-- Adjust chart size -->
+                <div class="text-center mt-2">
+                  <span id="successCount"></span> Success, <span id="failCount"></span> Failed <!-- Display counts -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Password Change Form -->
+          <div class="tab-content bg-transparent p-0 shadow-none" id="user-set-tabContent">
+            <div class="tab-pane fade show active" id="user-set-profile" role="tabpanel" aria-labelledby="user-set-profile-tab">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="mt-5 mb-3">Change Password</h5>
+                  <form method="post" action="{{ url_for('auth.change_password') }}" class="card">
+                      {{ form.hidden_tag() }} <!-- CSRF token -->
+
+                      <div class="row">
+                          <div class="col-sm-6">
+                              <div class="form-group">
+                                  <label class="form-label">Current Password <span class="text-danger">*</span></label>
+                                  {{ form.current_password(class="form-control", placeholder="Enter current password", required=True) }}
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="col-sm-6">
+                              <div class="form-group">
+                                  <label class="form-label">New Password <span class="text-danger">*</span></label>
+                                  {{ form.new_password(class="form-control", placeholder="Enter new password", required=True) }}
+                              </div>
+                          </div>
+                          <div class="col-sm-6">
+                              <div class="form-group">
+                                  <label class="form-label">Confirm Password <span class="text-danger">*</span></label>
+                                  {{ form.confirm_password(class="form-control", placeholder="Confirm new password", required=True) }}
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="card-footer text-end">
+                          <button type="submit" class="btn btn-danger">Change Password</button>
+                          <button type="button" class="btn btn-outline-dark ms-2">Clear</button>
+                      </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Include Chart.js library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const apiKey = "{{ api_key }}"; // Get api_key from template
+
+    fetch(`/api/user/${apiKey}/usage`)
+      .then(response => response.json())
+      .then(data => {
+        const totalCount = data.length;
+        const successCount = data.filter(item => item.success === 1).length;
+        const failCount = data.filter(item => item.success === 0).length;
+
+        const successPercentage = (successCount / totalCount) * 100;
+        const failPercentage = (failCount / totalCount) * 100;
+
+        const ctx = document.getElementById('apiUsageChart').getContext('2d');
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: ['Success', 'Failure'],
+            datasets: [{
+              label: 'Percentage',
+              data: [successPercentage, failPercentage],
+              backgroundColor: [
+                'rgba(75, 192, 192, 1)', // Green for success
+                'rgba(255, 99, 132, 1)'  // Red for failure
+              ]
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+                ticks: {
+                  callback: function(value) {
+                    return value + '%'; // Display percentage
+                  }
+                }
+              }
+            },
+            plugins: {
+              tooltip: {
+                callbacks: {
+                  label: function(tooltipItem) {
+                    const count = tooltipItem.label === 'Success' ? successCount : failCount;
+                    return `${tooltipItem.label}: ${tooltipItem.raw.toFixed(2)}% (${count} submissions)`; // Display percentage and count
+                  }
+                }
+              }
+            }
+          }
+        });
+
+        // Update counts on page
+        document.getElementById('successCount').textContent = successCount;
+        document.getElementById('failCount').textContent = failCount;
+      })
+      .catch(error => console.error('Error:', error));
+  });
+</script>
+
+{% endblock %}

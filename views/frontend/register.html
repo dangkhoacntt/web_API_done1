@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en"><!-- [Head] start --><head>
+    <title>Register | Berry Bootstrap 5 Admin Template</title>
+
+    <!-- [Meta] -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="description" content="Berry is made using Bootstrap 5 design framework.">
+    <meta name="keywords" content="Berry, Dashboard UI Kit, Bootstrap 5, Admin Template">
+    <meta name="author" content="CodedThemes">
+
+    <!-- [Favicon] icon -->
+    <link rel="icon" href="{{ url_for('static', filename='assets/images/favicon.svg') }}" type="image/x-icon">
+
+    <!-- [Google Font] Family -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" id="main-font-link">
+    <!-- [Template CSS Files] -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/style.css') }}" id="main-style-link">
+    
+    <style>
+        body {
+            background-color: #e0f7fa; /* Light blue background */
+        }
+        .auth-form {
+            background-color: #ffffff; /* White background for the form */
+            border: 3px solid black; /* Black border wider */
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%; /* Make sure it fits inside the wrapper */
+            max-width: 400px; /* Set a max width for the form */
+            margin: auto; /* Center the form */
+        }
+    </style>
+</head>
+<body data-pc-theme="light" data-pc-direction="ltr" style="font-family:'Roboto', sans-serif">
+
+    <div class="auth-main">
+      <div class="auth-wrapper v2">
+        <div class="auth-form">
+          <div class="logo">
+            <img src="{{ url_for('static', filename='assets/images/logo-dark.svg') }}" alt="Logo">
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="d-flex justify-content-center">
+                  <div class="auth-header">
+                    
+                    <h2 class="text-secondary"><b>Register</b></h2>
+                    <p class="f-16 mt-2">Enter your details to create an account</p>
+                    </div>
+                    </div>
+                    </div>
+                    <form method="post" action="{{ url_for('auth.register') }}">
+                      {{ form.hidden_tag() }} <!-- CSRF token -->
+
+                      <div class="form-floating mb-3">
+                        {{ form.email(class="form-control", placeholder="Email", required=True, id="email") }}
+                        <label for="email">Email</label>
+                      </div>
+
+                      <div class="form-floating mb-3">
+                        {{ form.password(class="form-control", placeholder="Password", required=True, id="password") }}
+                        <label for="password">Password</label>
+                      </div>
+
+                      <div class="form-floating mb-3">
+                        {{ form.first_name(class="form-control", placeholder="First Name", required=True, id="first_name") }}
+                        <label for="first_name">First Name</label>
+                      </div>
+
+                      <div class="form-floating mb-3">
+                        {{ form.last_name(class="form-control", placeholder="Last Name", required=True, id="last_name") }}
+                        <label for="last_name">Last Name</label>
+                      </div>
+                      <div class="d-grid mt-4">
+                        <button type="submit" class="btn btn-secondary p-2">Register</button>
+                      </div>
+                    </form>
+
+              <hr>
+              <h5 class="d-flex justify-content-center">Already have an account?
+                <a href="{{ url_for('auth.login') }}">Login</a>
+              </h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Required Js -->
+    <script src="{{ url_for('static', filename='assets/js/plugins/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/plugins/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/config.js') }}"></script>
+</body>
+</html>

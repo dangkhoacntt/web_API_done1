@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xác thực mã</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">  <!-- Liên kết với tệp CSS của bạn -->
+</head>
+<body>
+    <div class="container">
+        <h2>Xác thực mã</h2>
+        <form method="POST">
+            {{ form.hidden_tag() }}  <!-- CSRF token -->
+            <div class="form-group">
+                {{ form.code.label }}<br>
+                {{ form.code(class="form-control") }}  <!-- Thay class nếu cần -->
+            </div>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-primary") }}
+            </div>
+        </form>
+        <div>
+            {% for message in get_flashed_messages() %}
+                <div class="alert alert-danger">{{ message }}</div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!-- templates/backend/used_funds_report.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Báo cáo số tiền đã sử dụng</title>
+</head>
+<body>
+    <h1>Báo cáo số tiền đã sử dụng</h1>
+    
+    <h3>Tổng số tiền đã sử dụng: {{ total_used }} VND</h3>
+
+    <h2>Chi tiết giao dịch sử dụng tiền</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Email người dùng</th>
+                <th>Số tiền</th>
+                <th>Thời gian</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transaction in used_funds_details %}
+                <tr>
+                    <td>{{ transaction['email'] }}</td>
+                    <td>{{ transaction['amount'] }} VND</td>
+                    <td>{{ transaction['created_at'] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
